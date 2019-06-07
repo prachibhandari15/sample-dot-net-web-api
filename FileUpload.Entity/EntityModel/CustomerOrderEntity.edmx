@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CustomerDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BkpCustomerOrder">
+          <Key>
+            <PropertyRef Name="BkpID" />
+          </Key>
+          <Property Name="BkpID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FileUploadedId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="order_number" Type="nvarchar(max)" />
+          <Property Name="qty" Type="int" />
+          <Property Name="user_id" Type="nvarchar(max)" />
+          <Property Name="BkpDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CustomerOrder">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FileUploadedId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="order_number" Type="nvarchar(max)" />
+          <Property Name="qty" Type="int" />
+          <Property Name="user_id" Type="nvarchar(max)" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="IsAddedToBkpTbl" Type="bit" />
+        </EntityType>
+        <EntityType Name="FileStorageInfo">
+          <Key>
+            <PropertyRef Name="FileUploadId" />
+          </Key>
+          <Property Name="FileUploadId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OriginalFileName" Type="nvarchar(max)" />
+          <Property Name="StoredFileName" Type="nvarchar(max)" />
+          <Property Name="CreatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="TempCustomerOrder">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FileUploadedId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="order_number" Type="nvarchar(max)" />
+          <Property Name="qty" Type="int" />
+          <Property Name="user_id" Type="nvarchar(max)" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="IsAddedToMainTbl" Type="bit" />
+        </EntityType>
+        <EntityContainer Name="CustomerDBModelStoreContainer">
+          <EntitySet Name="BkpCustomerOrder" EntityType="Self.BkpCustomerOrder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CustomerOrder" EntityType="Self.CustomerOrder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FileStorageInfo" EntityType="Self.FileStorageInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TempCustomerOrder" EntityType="Self.TempCustomerOrder" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CustomerDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="CustomerDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BkpCustomerOrders" EntityType="CustomerDBModel.BkpCustomerOrder" />
+          <EntitySet Name="FileStorageInfoes" EntityType="CustomerDBModel.FileStorageInfo" />
+          <EntitySet Name="TempCustomerOrders" EntityType="CustomerDBModel.TempCustomerOrder" />
+          <EntitySet Name="CustomerOrders" EntityType="CustomerDBModel.CustomerOrder" />
+        </EntityContainer>
+        <EntityType Name="BkpCustomerOrder">
+          <Key>
+            <PropertyRef Name="BkpID" />
+          </Key>
+          <Property Name="BkpID" Type="Guid" Nullable="false" />
+          <Property Name="FileUploadedId" Type="Guid" Nullable="false" />
+          <Property Name="order_number" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="qty" Type="Int32" />
+          <Property Name="user_id" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BkpDate" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="FileStorageInfo">
+          <Key>
+            <PropertyRef Name="FileUploadId" />
+          </Key>
+          <Property Name="FileUploadId" Type="Guid" Nullable="false" />
+          <Property Name="OriginalFileName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="StoredFileName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="TempCustomerOrder">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="FileUploadedId" Type="Guid" Nullable="false" />
+          <Property Name="order_number" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="qty" Type="Int32" />
+          <Property Name="user_id" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsAddedToMainTbl" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="CustomerOrder">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="FileUploadedId" Type="Guid" Nullable="false" />
+          <Property Name="order_number" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="qty" Type="Int32" />
+          <Property Name="user_id" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsAddedToBkpTbl" Type="Boolean" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CustomerDBModelStoreContainer" CdmEntityContainer="CustomerDBEntities">
+          <EntitySetMapping Name="BkpCustomerOrders">
+            <EntityTypeMapping TypeName="CustomerDBModel.BkpCustomerOrder">
+              <MappingFragment StoreEntitySet="BkpCustomerOrder">
+                <ScalarProperty Name="BkpDate" ColumnName="BkpDate" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="qty" ColumnName="qty" />
+                <ScalarProperty Name="order_number" ColumnName="order_number" />
+                <ScalarProperty Name="FileUploadedId" ColumnName="FileUploadedId" />
+                <ScalarProperty Name="BkpID" ColumnName="BkpID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FileStorageInfoes">
+            <EntityTypeMapping TypeName="CustomerDBModel.FileStorageInfo">
+              <MappingFragment StoreEntitySet="FileStorageInfo">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="StoredFileName" ColumnName="StoredFileName" />
+                <ScalarProperty Name="OriginalFileName" ColumnName="OriginalFileName" />
+                <ScalarProperty Name="FileUploadId" ColumnName="FileUploadId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TempCustomerOrders">
+            <EntityTypeMapping TypeName="CustomerDBModel.TempCustomerOrder">
+              <MappingFragment StoreEntitySet="TempCustomerOrder">
+                <ScalarProperty Name="IsAddedToMainTbl" ColumnName="IsAddedToMainTbl" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="qty" ColumnName="qty" />
+                <ScalarProperty Name="order_number" ColumnName="order_number" />
+                <ScalarProperty Name="FileUploadedId" ColumnName="FileUploadedId" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomerOrders">
+            <EntityTypeMapping TypeName="CustomerDBModel.CustomerOrder">
+              <MappingFragment StoreEntitySet="CustomerOrder">
+                <ScalarProperty Name="IsAddedToBkpTbl" ColumnName="IsAddedToBkpTbl" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="qty" ColumnName="qty" />
+                <ScalarProperty Name="order_number" ColumnName="order_number" />
+                <ScalarProperty Name="FileUploadedId" ColumnName="FileUploadedId" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

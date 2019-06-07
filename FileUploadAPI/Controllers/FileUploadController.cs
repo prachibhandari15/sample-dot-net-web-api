@@ -5,43 +5,42 @@ using System.Net;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http;
+using BLL = FileUpload.BLL;
 
 namespace FileUploadAPI.Controllers
 {
     public class FileUploadController : ApiController
     {
-        [HttpPost]
-        public bool UploadFile()
+        private readonly HttpContext _context;
+
+        public FileUploadController()
         {
-            //ResponseModel res = new ResponseModel();
+            _context = HttpContext.Current;
+        }
+
+        [HttpPost]
+        public BLL.Model.ResponseModel UploadFile()
+        {
+            BLL.Model.ResponseModel res = new BLL.Model.ResponseModel();
             try
             {
+                BLL.Helper.FileUploadeHelper _helper = new BLL.Helper.FileUploadeHelper();
                 HttpResponseMessage response = new HttpResponseMessage();
-                var httpRequest = HttpContext.Current.Request;
-                string imgPath = "";
+                var httpRequest = _context.Request;
+                string filePath = HttpContext.Current.Server.MapPath("~/Content/OrderCsvFiles");
                 if (httpRequest.Files.Count > 0)
                 {
-                    foreach (string file in httpRequest.Files)
-                    {
-                        var postedFile = httpRequest.Files[file];
-                        imgPath = "/Content/CsvFiles/" + postedFile.FileName;
-                        string filePath = HttpContext.Current.Server.MapPath("~/Content/CsvFiles/" + postedFile.FileName);
-                        //postedFile.SaveAs(filePath);
-                    }
+                    res = _helper.UploadCustomerOrder(httpRequest, filePath);
                 }
-                //res.data = imgPath;
-                //res.message = "";
-                //res.status = true;
-                return true;
+                return res;
             }
             catch (Exception ex)
             {
-                //res.data = ex.InnerException;
-                //res.message = ex.Message;
-                //res.status = false;
-                return false;
+                res.data = ex.InnerException;
+                res.message = ex.Message;
+                res.status = false;
+                return res;
             }
-
         }
 
         [HttpGet]
